@@ -1,8 +1,21 @@
 import React, { Component } from "react";
 import NewsItems from "./NewsItems";
 import Spinner from "./Spinner";
+import PropTypes from "prop-types";
 
 export default class News extends Component {
+  static defaultProps = {
+    country: "in",
+    pageSize: "15",
+    category: "general"
+  };
+
+  static propsTypes = {
+    country: PropTypes.string,
+    pageSize: PropTypes.number,
+    category: PropTypes.string
+  };
+
   constructor() {
     super();
     this.state = {
@@ -13,7 +26,7 @@ export default class News extends Component {
   }
 
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/everything?q=tesla&from=this.props.pageSize23-08-08&sortBy=publishedAt&apiKey=21c383857cf74a4e939e85289499fef4&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=21c383857cf74a4e939e85289499fef4&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -27,7 +40,9 @@ export default class News extends Component {
   handlePreviousClick = async () => {
     console.log("P");
 
-    let url = `https://newsapi.org/v2/everything?q=tesla&from=this.props.pageSize23-08-08&sortBy=publishedAt&apiKey=21c383857cf74a4e939e85289499fef4&page=${
+    let url = `https://newsapi.org/v2/top-headlines?country=${
+      this.props.country
+    }&category=${this.props.category}&apiKey=21c383857cf74a4e939e85289499fef4&page=${
       this.state.page - 1
     }&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
@@ -49,7 +64,9 @@ export default class News extends Component {
         Math.ceil(this.state.totalResults / this.props.pageSize)
       )
     ) {
-      let url = `https://newsapi.org/v2/everything?q=tesla&from=this.props.pageSize23-08-08&sortBy=publishedAt&apiKey=21c383857cf74a4e939e85289499fef4&page=${
+      let url = `https://newsapi.org/v2/top-headlines?country=${
+        this.props.country
+      }&category=${this.props.category}&apiKey=21c383857cf74a4e939e85289499fef4&page=${
         this.state.page + 1
       }&pageSize=${this.props.pageSize}`;
       this.setState({ loading: true });
@@ -67,9 +84,11 @@ export default class News extends Component {
     return (
       <>
         <div className="container my-5">
-          <div className="container lh-sm my-5 text-center ">
-            <h1 className="head">Newsman <span className="text-danger">H</span><span className="text-primary">eadlines</span></h1>
-            <p className="para text-start lh-sm">
+          <div className="lh-sm my-5 text-center">
+            <h1 className="head my-5">
+            <span className="text-danger">N</span>ational <span className="text-danger">N</span><span className="text-primary">ewsline</span>
+            </h1>
+            <p className="fw-light fs-6 text-start my-5">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi
               vitae, a saepe, reprehenderit impedit, veniam porro laborum cum
               repellendus excepturi recusandae. Sequi accusantium eaque dolorum,
@@ -83,35 +102,36 @@ export default class News extends Component {
           </div>
           {this.state.loading && <Spinner />}
           <div className="row my-5">
-            {!this.state.loading && this.state.articles.map((element) => {
-              return (
-                <div className="col-md-3" key={element.url}>
-                  <NewsItems
-                    title={element.title ? element.title.slice(0, 45) : ""}
-                    description={
-                      element.description
-                        ? element.description.slice(0, 85)
-                        : ""
-                    }
-                    newsUrl={element.url}
-                    imageUrl={element.urlToImage}
-                  />
-                </div>
-              );
-            })}
+            {!this.state.loading &&
+              this.state.articles.map((element) => {
+                return (
+                  <div className="col-md-3" key={element.url}>
+                    <NewsItems
+                      title={element.title ? element.title.slice(0, 45) : ""}
+                      description={
+                        element.description
+                          ? element.description.slice(0, 85)
+                          : ""
+                      }
+                      newsUrl={element.url}
+                      imageUrl={element.urlToImage}
+                    />
+                  </div>
+                );
+              })}
           </div>
           <div className="container d-flex justify-content-between">
             <button
               disabled={this.state.page <= 1}
               type="button"
-              className="btn btn-sm btn-dark"
+              className="btn btn-sm btn-dark fw-light"
               onClick={this.handlePreviousClick}
             >
               &larr; Previous
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-dark"
+              className="btn btn-sm btn-dark fw-light"
               onClick={this.handleNextClick}
               disabled={
                 this.state.page + 1 >

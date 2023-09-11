@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom'
 
 export default class NewsItems extends Component {
 
@@ -6,13 +7,13 @@ export default class NewsItems extends Component {
     let {title, description, imageUrl, newsUrl} = this.props;
     return (
       <>
-        <div className="container my-3">
-            <div className="card" style={{width: '18rem'}}>
-                <img src={!imageUrl?"https://media.cnn.com/api/v1/images/stellar/prod/230906120920-03-donald-trump-082423.jpg?c=16x9&q=w_800,c_fill":imageUrl} className="card-img-top" alt=""/>
+        <div className="my-3 fs-6">
+            <div className="card">
+                <img src={!imageUrl?"https://gaadiwaadi.com/wp-content/uploads/2023/06/2023-Honda-Rebel-300.jpg":imageUrl} className="card-img-top" alt=""/>
                 <div className="card-body">
-                    <h5 className="card-title">{title}..</h5>
-                    <p className="card-text">{description}..</p>
-                    <a href={newsUrl} target="_blank" rel="noreferrer" className="btn btn-sm btn-dark">Read More</a>
+                    <h5 className="card-title fw-normal">{title}...</h5>
+                    <p className="card-text">{description}...</p>
+                    <Link to={newsUrl} target="_blank" rel="noreferrer" className="btn btn-sm btn-dark fw-light">Read More</Link>
                 </div>
             </div>
         </div>
