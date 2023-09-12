@@ -88,24 +88,13 @@ export default class News extends Component {
             <h1 className="head my-5">
             <span className="text-danger">N</span>ational <span className="text-danger">N</span><span className="text-primary">ewsline</span>
             </h1>
-            <p className="fw-light fs-6 text-start my-5">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi
-              vitae, a saepe, reprehenderit impedit, veniam porro laborum cum
-              repellendus excepturi recusandae. Sequi accusantium eaque dolorum,
-              eligendi reiciendis eos quod, ex optio laborum quaerat doloribus
-              quos perspiciatis quae natus porro, a impedit doloremque illo.
-              Optio eligendi, et amet dolor minus expedita quos ab rerum unde?
-              Aut recusandae nihil facilis expedita porro veritatis ex in dicta
-              temporibus eum laudantium, cumque hic animi est? Possimus sapiente
-              doloremque sequi cum enim quas magnam nulla.
-            </p>
           </div>
           {this.state.loading && <Spinner />}
           <div className="row my-5">
             {!this.state.loading &&
               this.state.articles.map((element) => {
                 return (
-                  <div className="col-md-3" key={element.url}>
+                  <div className="col-md-4" key={element.url}>
                     <NewsItems
                       title={element.title ? element.title.slice(0, 45) : ""}
                       description={
@@ -115,6 +104,9 @@ export default class News extends Component {
                       }
                       newsUrl={element.url}
                       imageUrl={element.urlToImage}
+                      author={element.author ? element.author : "(Unknown)"}
+                      date={element.publishedAt ? element.publishedAt : "..."}
+                      source={element.source.name ? element.source.name : "..."}
                     />
                   </div>
                 );
