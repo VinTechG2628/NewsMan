@@ -7,7 +7,7 @@ export default class News extends Component {
   static defaultProps = {
     country: "in",
     pageSize: "15",
-    category: "general",
+    category: "National Newsline - Online News Capsule | For anyone, for any field",
   };
 
   static propsTypes = {
@@ -16,13 +16,18 @@ export default class News extends Component {
     category: PropTypes.string,
   };
 
-  constructor() {
-    super();
+  capitalize = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  constructor(props) {
+    super(props);
     this.state = {
       articles: [],
       loading: false,
       page: 1,
     };
+    document.title = `${this.capitalize(this.props.category)} - National Newsline | Online News Capsule | For anyone, for any field`;
   }
 
   async updateNews() {
@@ -60,9 +65,10 @@ export default class News extends Component {
               <span className="text-danger">N</span>ational{" "}
               <span className="text-danger">N</span>
               <span className="text-primary">ewsline</span>
+              <h3 className="my-2">Top <span className="text-success">{this.capitalize(this.props.category)}</span> Headlines</h3>
             </h1>
           </div>
-          {this.state.loading && <Spinner />}
+          {this.state.loading && <Spinner />} 
           <div className="row my-5">
             {!this.state.loading &&
               this.state.articles.map((element) => {
@@ -72,7 +78,7 @@ export default class News extends Component {
                       title={element.title ? element.title.slice(0, 45) : ""}
                       description={
                         element.description
-                          ? element.description.slice(0, 85)
+                          ? element.description.slice(0, 100)
                           : ""
                       }
                       newsUrl={element.url}
