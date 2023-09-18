@@ -1,14 +1,12 @@
 import React, { Component } from "react";
+import loaded from "../img/spinner.gif";
 
 export default class Spinner extends Component {
   render() {
     return (
       <>
-      <div className="container text-center p-5">
-        <button className="btn btn-md btn-secondary p-2" type="button" disabled>
-            <span className="spinner-border spinner-border-sm mx-2" aria-hidden="true"></span>
-            <span role="status">Loading...</span>
-        </button>
+      <div className="text-center">
+        <img src={loaded} alt="loading" className="my-3" style={{width: '2.5rem'}}/>
       </div>
       </>
     );
