@@ -9,8 +9,10 @@ export default class NewsItems extends Component {
       <>
         <div className="m-4 fs-6">
             <div className="card">
-                <span className="position-absolute top-0 translate-middle badge bg-danger z-3" style={{left: '90%', borderRadius: '2px'}}>{source}</span>
-                <img src={!imageUrl?"https://gaadiwaadi.com/wp-content/uploads/2023/06/2023-Honda-Rebel-300.jpg":imageUrl} className="card-img-top" alt="..."/>
+              <div style={{display: 'flex', justifyContent: 'center', position: 'absolute', right: '0'}}>
+                <span className="badge rounded-0 rounded-bottom-0 rounded-end-1 bg-danger z-3 p-2">{source}</span>
+              </div>
+                <img src={imageUrl} className="card-img-top" alt="..."/>
                 <div className="card-body">
                     <h5 className="card-title fw-semibold">{title}...</h5>
                     <p className="card-text">{description}...</p>
